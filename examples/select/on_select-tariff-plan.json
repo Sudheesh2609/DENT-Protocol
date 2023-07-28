@@ -1,0 +1,85 @@
+{
+    "context": {
+      "domain": "uei:0.1.0",
+      "location": {
+        "country": {
+          "name": "India",
+          "code": "IND"
+        }
+      },
+      "timestamp": "2023-07-27T12:15:00Z",
+      "bap_id": "example-bap.com",
+      "transaction_id": "a1b2c3d4e5f6",
+      "message_id": "a1b2c3d4e5f6",
+      "city": "std:080",
+      "core_version": "1.1.0",
+      "action": "on_select",
+      "bap_uri": "https://api.example-bap.com/pilot/bap/charge/v1"
+    },
+    "message": {
+      "catalog": {
+        "descriptor": {
+          "name": "On_Select Tariff Plan Details"
+        },
+        "plan_id": "plan123"
+      },
+      "selected_plan": {
+        "plan_id": "plan123",
+        "descriptor": {
+          "name": "Standard Tariff Plan"
+        },
+        "price": {
+          "currency": "INR",
+          "value": "15 rupees per unit"
+        },
+        "billing_type": "time-of-use",
+        "validity": "2023-12-31T23:59:59Z",
+        "terms_and_conditions": "https://example-energy.com/terms/standard_plan",
+        "description": "This is a standard tariff plan with a time-of-use billing type. The price is 15 rupees per unit, and it is valid until 31st December 2023. Users will be charged based on different time slots throughout the day."
+      },
+      "additional_info": {
+        "time_slots": [
+          {
+            "start_time": "00:00:00",
+            "end_time": "08:00:00",
+            "rate": {
+              "currency": "INR",
+              "value": "12"
+            }
+          },
+          {
+            "start_time": "08:00:01",
+            "end_time": "16:00:00",
+            "rate": {
+              "currency": "INR",
+              "value": "15"
+            }
+          },
+          {
+            "start_time": "16:00:01",
+            "end_time": "23:59:59",
+            "rate": {
+              "currency": "INR",
+              "value": "18"
+            }
+          }
+        ],
+        "peak_hours": [
+          {
+            "start_time": "08:00:01",
+            "end_time": "16:00:00"
+          }
+        ],
+        "off_peak_hours": [
+          {
+            "start_time": "00:00:00",
+            "end_time": "08:00:00"
+          },
+          {
+            "start_time": "16:00:01",
+            "end_time": "23:59:59"
+          }
+        ]
+      }
+    }
+  }  
