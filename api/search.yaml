@@ -1,0 +1,689 @@
+openapi: 3.0.0
+info:
+  title: Beckn Energy API Specification
+  description: Adaptation of Beckn protocol for the energy sector. Compatible with core version 0.9.4 LTS.
+  version: 0.8.2
+security:
+  - SubscriberAuth: []
+  - GatewaySubscriberAuth: []
+  - GatewaySubscriberAuthNew: []
+paths:
+  /search:
+    post:
+      tags:
+        - Beckn Provider Platform (BPP)
+        - Beckn Gateway (BG)
+      description: Search for energy charging stations by location
+      requestBody:
+        description: BAP searches for charging stations
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                context:
+                  $ref: '#/components/schemas/Context'
+                message:
+                  type: object
+                  properties:
+                    intent:
+                      $ref: '#/components/schemas/Intent'
+                      example:
+                        fulfillment:
+                          location:
+                            gps: [latitude, longitude]
+              required:
+                - context
+                - message
+            examples:
+              Search for charging stations near user location:
+                value:
+                  context:
+                    country: IND
+                    domain: nic2004:60221
+                    timestamp: '2023-03-23T04:41:16Z'
+                    bap_id: example-bap.com
+                    transaction_id: 6743e9e2-4fb5-487c-92b7-13ba8018f176
+                    message_id: 6743e9e2-4fb5-487c-92b7-13ba8018f176
+                    city: std:080
+                    core_version: 0.9.4
+                    action: search
+                    bap_uri: https://api.example-bap.com/pilot/bap/energy/v1
+                  message:
+                    intent:
+                      fulfillment:
+                        location:
+                          gps: [latitude, longitude]
+              Search for charging stations near user location with additional parameters:
+                value:
+                  context:
+                    country: IND
+                    domain: nic2004:60221
+                    timestamp: '2023-03-23T04:41:16Z'
+                    bap_id: example-bap.com
+                    transaction_id: 6743e9e2-4fb5-487c-92b7-13ba8018f176
+                    message_id: 6743e9e2-4fb5-487c-92b7-13ba8018f176
+                    city: std:080
+                    core_version: 0.9.4
+                    action: search
+                    bap_uri: https://api.example-bap.com/pilot/bap/energy/v1
+                  message:
+                    intent:
+                      fulfillment:
+                        location:
+                          gps: [latitude, longitude]
+                        customer:
+                          person:
+                            tags:
+                              groups/1/descriptor/name: Localization
+                              groups/1/display: false
+                              groups/1/list/1/descriptor/name: Language
+                              groups/1/list/1/value: en
+                        additional_parameters:
+                          charger_type: AC
+                          connector_type: AC001
+                          power_rating: 50kW
+                          connector_availability: Available
+                          tariff: 10.5 INR
+      responses:
+        '200':
+          description: Acknowledgement of message received
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: object
+                    properties:
+                      ack:
+                        $ref: '#/components/schemas/Ack'
+                      search_results:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ChargerInfo'
+                    required:
+                      - ack
+                  error:
+                    $ref: '#/components/schemas/Error'
+                required:
+                  - message
+
+components:
+  schemas:
+    Context:
+      type: object
+      properties:
+        country:
+          type: string
+        domain:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        bap_id:
+          type: string
+        transaction_id:
+          type: string
+        message_id:
+          type: string
+        city:
+          type: string
+        core_version:
+          type: string
+        action:
+          type: string
+        bap_uri:
+          type: string
+      required:
+        - country
+        - domain
+        - timestamp
+        - bap_id
+        - transaction_id
+        - message_id
+        - city
+        - core_version
+        - action
+        - bap_uri
+
+    Intent:
+      type: object
+      properties:
+        fulfillment:
+          $ref: '#/components/schemas/Fulfillment'
+      required:
+        - fulfillment
+
+    Fulfillment:
+      type: object
+      properties:
+        location:
+          type: object
+          properties:
+            gps:
+              type: array
+              items:
+                type: number
+        additional_parameters:
+          type: object
+          properties:
+            charger_type:
+              type: string
+            connector_type:
+              type: string
+            power_rating:
+              type: number
+            connector_availability:
+              type: string
+            tariff:
+              type: number
+
+    ChargerInfo:
+      type: object
+      properties:
+        name:
+          type: string
+        address:
+          type: string
+        latitude:
+          type: float
+        longitude:
+          type: float
+        availability:
+          type: boolean
+        connectors_available:
+          type: integer
+        connector_type:
+          type: string
+        power_rating:
+          type: float
+        charger_type:
+          type: string
+        tariff:
+          type: number
+
+    Ack:
+      type: string
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        description:
+          type: string        
+
+  /on_search:
+    post:
+      tags:
+        - Beckn App Platform (BAP)
+        - Beckn Gateway (BG)
+      description: Send catalog of charging stations
+      requestBody:
+        description: TODO
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                context:
+                  $ref: '#/components/schemas/Context'
+                message:
+                  type: object
+                  properties:
+                    catalog:
+                      $ref: '#/components/schemas/Catalog'
+                  required:
+                    - catalog
+                error:
+                  $ref: '#/components/schemas/Error'
+              required:
+                - context
+            examples:
+              Return a single charging station catalog:
+                value:
+                  message:
+                    context:
+                      country: IND
+                      bpp_uri: https://api.example-bpp.in/path/to/url
+                      domain: nic2004:60221
+                      timestamp: '2023-03-23T04:43:02Z'
+                      bap_id: example-bap.in
+                      transaction_id: 870782be-6757-43f1-945c-8eeaf9536259
+                      bpp_id: example-bpp.in
+                      message_id: 21e54d3c-9c3b-47c1-aa3b-b0e7b20818ee
+                      city: std:080
+                      core_version: 0.9.4
+                      action: on_search
+                      bap_uri: https://api.example-bap.in/path/to/url
+                    catalog:
+                      bpp/descriptor:
+                        name: PowerCharge Solutions
+                      bpp/providers:
+                        - id: '1'
+                          descriptor:
+                            name: FastCharge Stations
+                          locations:
+                            - id: '1'
+                              gps: 12.923608703179461, 77.61462964117527
+                              tariff: 9.5 INR per unit
+                              connector_type: AC001, DC001
+                              power_rating: 50kW
+                              availability: Available
+                            - id: '2'
+                              gps: 12.9346302, 77.61533969999999
+                              tariff: 10 INR per unit
+                              connector_type: CCS2, Type 6(Ola)
+                              power_rating: 50kW
+                              availability: Occupied
+                          items:
+                            - id: 5777a0bf-9a08-49aa-a97d-1e5561a9622e
+                              descriptor:
+                                name: Economy
+                                code: CHARGE
+                              tariff: 10 INR per unit
+                              tags:
+                                groups/1/descriptor/name: FastCharge Stations
+                                groups/1/display: true
+                                groups/1/list/1/descriptor/name: Min Fare for one unit
+                                groups/1/list/1/value: 9.5 INR per unit
+                                groups/1/list/2/descriptor/name: Rate above Min. Fare
+                                groups/1/list/2/value: 10 INR per unit
+                                groups/1/list/3/descriptor/name: Pre-Booking Charges
+                                groups/1/list/3/value: 100 INR
+                              fulfillment_id: fb5c84d4-1b59-4b9d-96b5-9d79107432c5
+                              payment_id: '1'
+                          fulfillments:
+                            - id: fb5c84d4-1b59-4b9d-96b5-9d79107432c5
+                                location:
+                                  gps: 12.9099828, 77.6118226
+                                  address:
+                                    ward: Uttarahalli Hobli, Ramanjaneyanagar
+                                    country: India
+                                    building: 6th Main Rd
+                                    state: Karnataka 560061
+                                    city: Bengaluru
+                                    locality: Uttarahalli Hobli
+                                    door: null
+                                    area_code: '560061'
+                                    street: Ramanjaneyanagar
+                              vehicle:
+                                category: 4-Wheeler
+                          payments:
+                            - id: '1'
+                              type: ON-FULFILLMENT
+                              collected_by: BPP
+                  required:
+                    - ack
+              Return a charging station catalog with multiple providers:
+                value:
+                  message:
+                    context:
+                      country: IND
+                      bpp_uri: https://api.example-bpp.in/path/to/url
+                      domain: nic2004:60221
+                      timestamp: '2023-03-23T04:43:02Z'
+                      bap_id: example-bap.in
+                      transaction_id: 870782be-6757-43f1-945c-8eeaf9536259
+                      bpp_id: example-bpp.in
+                      message_id: 21e54d3c-9c3b-47c1-aa3b-b0e7b20818ee
+                      city: std:080
+                      core_version: 0.9.4
+                      action: on_search
+                      bap_uri: https://api.example-bap.in/path/to/url
+                    catalog:
+                      bpp/descriptor:
+                        name: E-Charge Solutions
+                        images:
+                          - https://example-bpp.com/images/logos/ecs.ico
+                      bpp/providers:
+                        - id: '1'
+                          descriptor:
+                            name: PowerCharge Stations
+                            images:
+                              - https://example-bpp.com/images/logos/pcs.ico
+                          items:
+                            - id: '1'
+                              gps: 12.923608703179461, 77.61462964117527
+                              tariff: 9.5 INR per unit
+                              connector_type: AC001, DC001
+                              power_rating: 50kW
+                              availability: Available
+                              fulfillment_id: '1'
+                              payment_id: '1'
+                            - id: '2'
+                              gps: 12.9346302, 77.61533969999999
+                              tariff: 10 INR per unit
+                              connector_type: CCS2, Type 6(Ola)
+                              power_rating: 50kW
+                              availability: Occupied
+                              fulfillment_id: '1'
+                              payment_id: '1'
+                          fulfillments:
+                            - id: '1'
+                              location:
+                                gps: 12.9099828, 77.6118226
+                              vehicle:
+                                category: 4-Wheeler
+                          payments:
+                            - id: '1'
+                              type: ON-FULFILLMENT
+                              collected_by: BPP
+                        - descriptor:
+                            name: SwiftCharge Stations
+                            images:
+                              - https://example-bpp.com/images/logos/scs.ico
+                          items:
+                            - id: '1'
+                              gps: 12.926522, 77.619815
+                              tariff: 8.5 INR per unit
+                              connector_type: DC001
+                              power_rating: 50kW
+                              availability: Available
+                              fulfillment_id: fb5c84d4-1b59-4b9d-96b5-9d79107432c5
+                              payment_id: '1'
+                            - id: '2'
+                              gps: 12.931651, 77.620125
+                              tariff: 9 INR per unit
+                              connector_type: CCS2, Type 6(Ola)
+                              power_rating: 50kW
+                              availability: Unavailable
+                              fulfillment_id: fb5c84d4-1b59-4b9d-96b5-9d79107432c5
+                              payment_id: '1'
+                          fulfillments:
+                            - id: '1'
+                              location:
+                                gps: 12.9099828, 77.6118226
+                              vehicle:
+                                category: 4-Wheeler
+                            - id: '2'
+                              location:
+                                gps: 12.9099828, 77.6118226
+                              vehicle:
+                                category: 3-Wheeler
+                          payments:
+                            - id: '1'
+                              type: ON-FULFILLMENT
+                              collected_by: BPP
+              Return an energy catalog with no provider:
+                value:
+                  message:
+                    context:
+                      country: IND
+                      bpp_uri: https://api.example-bpp.com/dobpp/beckn/7f7896dd-787e-4a0b-8675-e9e6fe93bb8f
+                      domain: nic2004:60221
+                      timestamp: '2023-03-23T04:43:02Z'
+                      bap_id: example-bap.com
+                      transaction_id: 870782be-6757-43f1-945c-8eeaf9536259
+                      bpp_id: example-bpp.com
+                      message_id: 21e54d3c-9c3b-47c1-aa3b-b0e7b20818ee
+                      city: std:080
+                      core_version: 0.9.4
+                      action: on_search
+                      bap_uri: https://api.example-bap.com/pilot/bap/charge/v1
+                    catalog:
+                      bpp/descriptor:
+                        name: Tata Charge
+                      bpp/providers:
+                        - id: 1
+                          locations:
+                            - id: '1'
+                              gps: 12.9164682,77.6089985
+                            - id: '2'
+                              gps: 12.91671,77.6092983
+                            - id: '3'
+                              gps: 12.9165733,77.6152167
+                            - id: '4'
+                              gps: 12.9068578,77.6044567
+                          items:
+                            - id: 5777a0bf-9a08-49aa-a97d-1e5561a9622e
+                              descriptor:
+                                name: Instant Charge
+                                code: log9 Charge
+                              Tariff:
+                                maximum_value_per_unit: '8.5'
+                                minimum_value_per_unit: '10'
+                                currency: INR
+                                value_per_unit: 8.5 - 10 INR
+                              fulfillment_id: fb5c84d4-1b59-4b9d-96b5-9d79107432c5
+                              payment_id: '1'
+                          fulfillments:
+                            - id: fb5c84d4-1b59-4b9d-96b5-9d79107432c5
+                              location:
+                                gps: 12.9099828, 77.6118226
+                                  address:
+                                    ward: Uttarahalli Hobli, Ramanjaneyanagar
+                                    country: India
+                                    building: 6th Main Rd
+                                    state: Karnataka 560061
+                                    city: Bengaluru
+                                    locality: Uttarahalli Hobli
+                                    door: null
+                                    area_code: '560061'
+                                    street: Ramanjaneyanagar
+                              vehicle:
+                                category: 3-Wheeler
+                          payments:
+                            - id: '1'
+                              type: ON-FULFILLMENT
+                              collected_by: BPP
+              Return an energy provider catalog (with some optional tags):
+                value:
+                  message:
+                    context:
+                      country: IND
+                      bpp_uri: https://api.example-bpp.com/dobpp/beckn/7f7896dd-787e-4a0b-8675-e9e6fe93bb8f
+                      domain: nic2004:60221
+                      timestamp: '2023-03-23T04:43:02Z'
+                      bap_id: example-bap.com
+                      transaction_id: 870782be-6757-43f1-945c-8eeaf9536259
+                      bpp_id: example-bpp.com
+                      message_id: 21e54d3c-9c3b-47c1-aa3b-b0e7b20818ee
+                      city: std:080
+                      core_version: 0.9.4
+                      action: on_search
+                      bap_uri: https://api.example-bap.com/pilot/bap/charge/v1
+                    catalog:
+                      bpp/descriptor:
+                        name: Tata Charge
+                      bpp/providers:
+                        - id: 1
+                          locations:
+                            - id: '1'
+                              gps: 12.9164682,77.6089985
+                            - id: '2'
+                              gps: 12.91671,77.6092983
+                            - id: '3'
+                              gps: 12.9165733,77.6152167
+                            - id: '4'
+                              gps: 12.9068578,77.6044567
+                          items:
+                            - id: 5777a0bf-9a08-49aa-a97d-1e5561a9622e
+                              descriptor:
+                                name: Instant Charge
+                                code: Charge
+                              Tariff:
+                                maximum_value_per_unit: '8.5'
+                                minimum_value_per_unit: '10'
+                                currency: INR
+                                value_per_unit: 8.5 - 10 INR
+                              
+                              tags:
+                                groups/1/descriptor/name: DC charge Charges
+                                groups/1/display: true
+                                groups/1/list/1/descriptor/name: Min Fare for one unit
+                                groups/1/list/1/value: 9.5 INR per unit
+                                groups/1/list/2/descriptor/name: Rate above Min. Fare
+                                groups/1/list/2/value: 10 INR per unit
+                                groups/1/list/3/descriptor/name: Pre-Booking Charges
+                                groups/1/list/3/value: 100 INR
+                                groups/1/list/4/descriptor/name: Non-log9 battery charge
+                                groups/1/list/4/descriptor/short_desc: Except for log9 battery enabled vehicles
+                                groups/1/list/4/value: 0 INR                                
+                                groups/2/descriptor/name: AC charge Charges
+                                groups/2/display: true
+                                groups/2/list/1/descriptor/name: Min Fare per unit
+                                groups/2/list/1/value: 1.5x of DC charge charges applicable
+                                groups/2/list/2/descriptor/name: Rate above Min. Fare
+                                groups/2/list/2/value: 1.5x of DC charge charges applicable
+                                groups/2/list/3/descriptor/name: Pre-Booking Charges
+                                groups/2/list/3/value: 100 INR
+                                groups/2/list/4/descriptor/name: log9 battery charge
+                                groups/2/list/4/descriptor/short_desc: Except for log9 battery enabled vehicles
+                                groups/2/list/4/value: 0 INR
+                              fulfillment_id: fb5c84d4-1b59-4b9d-96b5-9d79107432c5
+                              payment_id: '1'
+                          fulfillments:
+                            - id: fb5c84d4-1b59-4b9d-96b5-9d79107432c5
+                              location:
+                                gps: 12.9099828, 77.6118226
+                                address:
+                                  ward: Uttarahalli Hobli, Ramanjaneyanagar
+                                  country: India
+                                  building: 6th Main Rd
+                                  state: Karnataka 560061
+                                  city: Bengaluru
+                                  locality: Uttarahalli Hobli
+                                  door: null
+                                  area_code: '560061'
+                                  street: Ramanjaneyanagar
+                              vehicle:
+                                category: 3-Wheeler
+                          payments:
+                            - id: '1'
+                              type: ON-FULFILLMENT
+                              collected_by: BPP
+              Return a charge station catalog of fare products:
+                value:
+                  context:
+                    domain: nic2008:49213
+                    country: IND
+                    city: std:011
+                    action: on_search
+                    core_version: 0.9.4
+                    bap_id: https://example-bap.com
+                    bap_uri: https://mock_bap.com/beckn/
+                    bpp_id: https://charge-solutions.com
+                    bpp_uri: https://api.charge-solutions.com/beckn/
+                    transaction_id: 6f339232-2bc3-44d2-915c-30d2b053ce1d
+                    message_id: fde8b8b6-c2e5-49f7-b254-720843d528bd
+                    timestamp: '2021-03-23T10:00:40.065Z'
+                  message:
+                    catalog:
+                      bpp/descriptor:
+                        name: Charge Solutions
+                        images:
+                          - https://chargesolutions.in/logos/logo.ico
+                      bpp/providers:
+                        - id: '1'
+                          descriptor:
+                            name: Tata Charge 
+                            images:
+                              - https://tatacharge.com/logos/logo.ico
+                          items:
+                            - id: '1'
+                              descriptor:
+                                name: DC Charger 1
+                                images:
+                                  - https://tatacharge.com/icons/dcc1.ico
+                              fulfillment_id: '1'
+                              Tariff:
+                                value_per_unit: '10'
+                                currency: INR
+                            - id: '2'
+                              descriptor: 
+                                name: DC Charger 2 (log9 battery enabled)
+                                images:
+                                  - https://tatacharge.com/icons/dcc2.ico
+                              fulfillment_id: '2'
+                              Tariff:
+                                value_per_unit: '10'
+                                currency: INR
+                            - id: '3'
+                              descriptor:
+                                name: AC Charger 1
+                                images:
+                                  - https://tatacharge.com/icons/acc1.ico
+                              fulfillment_id: '3'
+                              Tariff:
+                                value_per_unit: '10'
+                                currency: INR
+                            - id: '4'
+                              descriptor:
+                                name: AC Charger 2
+                                images:
+                                  - https://tatacharge.com/icons/acc2.ico
+                              fulfillment_id: '1'
+                              Tariff:
+                                value_per_unit: '15'
+                                currency: INR
+                            - id: '5'
+                              descriptor:
+                                name: Pre-Booking Charger
+                                images:
+                                  - https://tatacharge.com/icons/pbc.ico
+                              fulfillment_id: '2'
+                              tariff:
+                                value: '100'
+                                currency: INR
+                          fulfillments:
+                            - id: '1'
+                              location:
+                                descriptor:
+                                  name: Tata Charge Station
+                                    gps: 28.5811261,77.0548206
+                              vehicle:
+                                category: 2-Wheeler
+                              tags:
+                                groups/0/list/0/descriptor/name: Connecter
+                                groups/0/list/0/value: '1'
+                                groups/0/list/1/descriptor/name: Units
+                                groups/0/list/1/value: 60 units
+                            - id: '2'
+                              location:
+                                descriptor:
+                                  name: Tata Charge Station
+                                    gps: 28.5811261,77.0548206
+                              vehicle:
+                                category: 3-Wheeler
+                              tags:
+                                groups/0/list/0/descriptor/name: Connecter
+                                groups/0/list/0/value: '2'
+                                groups/0/list/1/descriptor/name: Units
+                                groups/0/list/1/value: 45 units
+                            - id: '3'
+                              location:
+                                descriptor:
+                                  name: Tata Charge Station
+                                    gps: 28.5811261,77.0548206 
+                              vehicle:
+                                category: 4-Wheeler
+                              tags:
+                                groups/0/list/0/descriptor/name: Connecter
+                                groups/0/list/0/value: '1'
+                                groups/0/list/1/descriptor/name: Units
+                                groups/0/list/1/value: 100 units
+                          tags:
+                            groups/0/list/0/descriptor/name: Pre-Booking Schedule
+                            groups/0/list/0/value: https://tatacharge.com/pbs
+                            groups/0/list/0/display: false  
+      responses:
+        '200':
+          description: Acknowledgement of message received
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: object
+                    properties:
+                      ack:
+                        $ref: '#/components/schemas/Ack'
+                    required:
+                      - ack
+                  error:
+                    $ref: '#/components/schemas/Error'
+                required:
+                  - message
