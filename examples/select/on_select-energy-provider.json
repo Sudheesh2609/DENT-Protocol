@@ -1,0 +1,137 @@
+{
+    "context": {
+      "domain": "uei:0.1.0",
+      "location": {
+        "country": {
+          "name": "India",
+          "code": "IND"
+        }
+      },
+      "timestamp": "2023-07-27T11:30:00Z",
+      "bap_id": "example-bap.com",
+      "transaction_id": "1a5e3480-8cd6-4eb6-a0b1-58a40a0ce0fd",
+      "message_id": "1a5e3480-8cd6-4eb6-a0b1-58a40a0ce0fd",
+      "city": "std:080",
+      "core_version": "1.1.0",
+      "action": "on_select",
+      "bap_uri": "https://api.example-bap.com/pilot/bap/charge/v1"
+    },
+    "message": {
+      "catalog": {
+        "descriptor": {
+          "name": "Alpha Charging Solutions"
+        },
+        "providers": [
+          {
+            "id": "14325",
+            "descriptor": {
+              "name": "Spark Charging Station, Outer Ring Road"
+            },
+            "locations": [
+              {
+                "gps": "12.925087, 77.6132964",
+                "map_url": "https://goo.gl/maps/5A432HSHfcd2",
+                "city": "Bangalore",
+                "area_code": "540045"
+              }
+            ],
+            "items": [
+              {
+                "id": "686d2a8b-0e0b-4bcb-b629-5e7208c9cbfc",
+                "descriptor": {
+                  "name": "Spark Charger Point 1"
+                },
+                "price": {
+                  "currency": "INR",
+                  "value": "11 rupees per unit"
+                },
+                "tags": [
+                  {
+                    "descriptor": {
+                      "name": "Charger Connector 1 Details"
+                    },
+                    "list": [
+                      {
+                        "descriptor": {
+                          "name": "Charger type"
+                        },
+                        "value": "AC"
+                      },
+                      {
+                        "descriptor": {
+                          "name": "Connector type"
+                        },
+                        "value": "CCS2"
+                      },
+                      {
+                        "descriptor": {
+                          "name": "Power Rating"
+                        },
+                        "value": "greater than 50kW"
+                      },
+                      {
+                        "descriptor": {
+                          "name": "Availability"
+                        },
+                        "value": "Available"
+                      }
+                    ],
+                    "display": true
+                  }
+                ]
+              },
+              {
+                "id": "993def7f-9f73-4914-b999-5249285e0d5a",
+                "descriptor": {
+                  "name": "Spark Charger Point 2"
+                },
+                "price": {
+                  "currency": "INR",
+                  "value": "13 rupees per unit"
+                },
+                "tags": [
+                  {
+                    "descriptor": {
+                      "name": "Charger Connector 1 Details"
+                    },
+                    "list": [
+                      {
+                        "descriptor": {
+                          "name": "Charger type"
+                        },
+                        "value": "AC"
+                      },
+                      {
+                        "descriptor": {
+                          "name": "Connector type"
+                        },
+                        "value": "CCS2"
+                      },
+                      {
+                        "descriptor": {
+                          "name": "Power Rating"
+                        },
+                        "value": "greater than 50kW"
+                      },
+                      {
+                        "descriptor": {
+                          "name": "Availability"
+                        },
+                        "value": "Available"
+                      }
+                    ],
+                    "display": true
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "selected": {
+        "provider_id": "14325",
+        "item_id": "686d2a8b-0e0b-4bcb-b629-5e7208c9cbfc"
+      }
+    }
+  }
+  
