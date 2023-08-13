@@ -15,11 +15,11 @@ The provider sends all the EV Charger providers and their catalogs nearby to the
 ### Step 3: User selects EV Charger
 Selects the EV provider which satisfies his requirements.
 In thi stage user may select additional features such as:
-i. User can block/reserve the charger for a certain time slot
-ii. If the user is a fleet driver he will just comes and connects the charger whenever the charger is ready to use
-iii. User can select the charger type he wants to use such as A.C. or D.C.
-iv. User selects the vehicle type of his electrical vehicle (2-wheeler/3-wheeler/4-wheeler)
-v. User can select the start time and end time of the charging - (While in the case of reservation done by user)
+[i] User can block/reserve the charger for a certain time slot
+[ii] If the user is a fleet driver he will just comes and connects the charger whenever the charger is ready to use
+[iii] User can select the charger type he wants to use such as A.C. or D.C.
+[iv] User selects the vehicle type of his electrical vehicle (2-wheeler/3-wheeler/4-wheeler)
+[v] User can select the start time and end time of the charging - (While in the case of reservation done by user)
 
 ### Step 4: Provider sends quoted price
 The provider will receive the order based on the user requirements.
