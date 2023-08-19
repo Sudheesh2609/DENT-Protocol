@@ -7,64 +7,66 @@ Bear in mind, this is just an example workflow for a simple EV Charing workflow 
 
 A typical workflow for a EV Charging consists of the following steps
 
-### Step 1: User searches for EV Chargers
+#### Step 1: User searches for EV Chargers
 The user provides his/her current location and specific requirements (These requirements will act as filters for EV Charging Providers) to find the nearest EV Chargers to charge his/her EV vehicle
 
-### Step 2: Provider sends catalogs of EV Chargers nearby
+#### Step 2: Provider sends catalogs of EV Chargers nearby
 The provider sends all the EV Charger providers and their catalogs nearby to the user.
 The catalog will consists of all the services provided by the provider such as charging types, connector types and battery swapping services etc.,
 
-### Step 3: User selects EV Charger
+#### Step 3: User selects EV Charger
 Selects the EV provider which satisfies his requirements.
 In this stage user may select additional features such as:
-1. User can block/reserve the charger for a certain time slot along with start and duration time of the Charging session.
+1. User can block/use-up the charger for a certain time slot along with start and duration time of the Charging session.
 2. User can select the charger type he wants to use such as A.C. or D.C.
 3. User can select the connecter type such as CCS2 etc.,
 4. User selects the vehicle type of his electrical vehicle (2-wheeler/3-wheeler/4-wheeler) and sends the information of the user EV.
 
-### Step 4: Provider sends quoted price
+#### Step 4: Provider sends quoted price
 The provider will receive the order based on the user requirements.
 The user gets the quoted price, including the breakup of the price details.
 The breakup should include:
   - Tariff per unit (i.e., INR/KWh), the tariff per unit might change by the charger type and location of Energy Charger Provider
-  - Price for block/reservation
+  - Price for block/use-up
 
-### Step 5: User initiates the order
+#### Step 5: User initiates the order
 User initializes the order by providing billing details. 
 Here, the user will provide their `Name`, `Email ID` and `Phone Number` and updates the payment details
 
-### Step 6: Provider sends draft order
+#### Step 6: Provider sends draft order
 The provider sends the draft order with the payment and fulfilment terms to the user-side.
 Based on how much units of Electrical Energy user used during charging as tariff_per_unit as already mentioned above in INR/KWh
-If the user also done the block/reservation the transaction includes the price for block/reservation price as well 
+If the user also done the block/use-up the transaction includes the price for block/use-up price as well 
 The tariff_per_unit might change with the charger type as we know that A.C. charger type has different price compared to D.C. charger type.
 
-### Step 7: User confirms the order
+#### Step 7: User confirms the order
 User sees the draft order and confirms it by agreeing to the payment and fulfilment terms and conditions
 The confirm status will sent to the provider saying that user has paid the price
 
-### Step 8: Provider sends the order activation
+#### Step 8: Provider sends the order activation
 The provider will activates the order and informs user that the order is activated
 
-### Step 9: User checks the status of the order
+#### Step 9: User checks the status of the order
 The user requests to check the updates/status of his/her order
 
-### Step 10: Provider sends the status of the order
+#### Step 10: Provider sends the status of the order
 The provider will send the order updates with current status to the user
 
 ## Search (Searching for EV Chargers)
 1. The user declares the intent for EV Charging to the providers
 2. Providers publish the catalog of their services
 
-#### User-side Actions
+### User-side Actions
+A EV user can declare their intent for EV charging in many ways like:
 - Searching for EV Charging Providers based on current location of user
-- Searching for EV Charging Providers based on Charging types/Connector types
+- Searching for EV Charging Providers based on quantity required
 - Searching for EV Charging Providers based on Name/Code of provider
 - Searching for EV Charging Providers based on ratings
 - View list of energy sources, such as EV chargers, Solar Farms providing EV charging, Houses providing EV charging, etc.
 - Viewing the catalog/details of services provided by a particular energy charging provider
 
-#### Provider-side Actions
+### Provider-side Actions
+In this interaction, the Provider publishes their catalog of services and products. A Provider can publish various types of catalogs like
 - Publish list of energy sources and EV chargers including Solar Farms providing EV charging, Houses, etc.
 - Publish list of provders in 5Km radius of user
 - Publish list of provders with the requested Charing types/Connector types
@@ -83,7 +85,7 @@ In beckn protocol, the search intent generated by the EV User Platform (BAP) is 
     sequenceDiagram
     User Platform (BAP)->>Gateway (BG): Declare Intent to charge EV ( search )
     Gateway (BG)->>Registry: Lookup Provider Platforms (lookup)
-    Registry->>Gateway (BG): List of Provider Platforms in 5km radius (100 OK)
+    Registry->>Gateway (BG): List of Provider Platforms in 'x'km radius and 'y'kwh energy quantity required (200 OK)
     Gateway (BG)->>Provider Platform 1 (BPP1): Declare Intent to charge EV (search)
     Gateway (BG)->>Provider Platform 2 (BPP2): Declare Intent to charge EV (search)
     Gateway (BG)->>Provider Platform n (BPPn): Declare Intent to charge EV (search)
@@ -91,58 +93,167 @@ In beckn protocol, the search intent generated by the EV User Platform (BAP) is 
     Provider Platform 2 (BPP2)->>User Platform (BAP): Publish Catalog of Provider 2 (on_search)
     Provider Platform n (BPPn)->>User Platform (BAP): Publish Catalog of Provider n (on_search)
 ```
-### Select and Book Charging
+
+## Select and Book Charging
 1. User selects a EV Charge Provider from the list which satisfies the requirements
 2. The provider sends the draft order with the quoted price to the User
    
-#### User-side Actions
-- Select an EV charger(s) from the list of energy sources
-- Select to block/reserve charger (or) not. (Y/N) 
-- Select start and end time for block/reservation of charger
-- Select charger type (A.C. or D.C.)
-- Select vehicle type (2-wheeler, 3-wheeler, 4-wheeler)
-- Select Connector type (CCS2, etc.,)
+### User-side Actions
+- Selecting EV Charge Provider(s) after viewing catalogs
+- Selecting to block/use-up charger (or) not. (Y/N) 
+- Selecting start and end time for block/use-up of charger
+- Selecting charger type (A.C./D.C.)
+- Selecting vehicle type (2-wheeler, 3-wheeler, 4-wheeler)
+- Selecting Connector type (CCS2, etc.,)
 
-#### Provider-side Actions
+### Provider-side Actions
 - Receive user's selection
-- Requesting to slect (Y/N) for block/reserve charger
-- Provideer sends draft order for the selected EV charge with quoted price
-- The price includes with a breakup of ``
+- Requesting for block/use-up charger (Y/N)
+- Requesting for time slot
+- Requesting for charger type, connecter type and vehicle type
+- Provider sends draft order for the selected EV charge with quoted price
+- The price includes with a breakup of `tariff_per_unit`, `Reservation Price`, `GST`
 
-### 3. Fulfillment (Order Initialization)
+### Logical Workflow
+The below diagram illustrates the logical interactions between a EV user and Provider during the Selecting service/product stage
+```mermaid
+    sequenceDiagram
+    EV User->>EV Charging Provider: Selects a EV charger provider
+    EV Charging Provider->>EV User: Request for block/use-up (Y/N)
+    EV User->>EV Charging Provider: Selects for block/use-up (Y/N)
+    EV Charging Provider->>EV User: Request for time slot - start & end
+    EV User->>EV Charging Provider: Selects start & end time slot
+    EV Charging Provider->>EV User: Requesting for charger type & vehicle type
+		EV User->>EV Charging Provider: Selects charger & vehicle type
+    EV Charging Provider->>EV User: Sends the draft order with quoted price
+```
 
-#### User-side Actions
+### Beckn Protocol API Workflow
+```mermaid
+   sequenceDiagram
+   User Platform (BAP)->> Provider 1 (BPP): Select EV charge Provider after seeing catalogs of all providers (select)
+   Provider 1 (BPP)->>User Platform (BAP): Publish Provider 1 catalog (on_select)
+   User Platform (BAP)->> Provider 1 (BPP): Select EV charging as a service from Provider 1 (select)
+   Provider 1 (BPP)->>User Platform (BAP): Request block/use-up (on_select)
+   User Platform (BAP)->> Provider 1 (BPP): Select block/use-up (select)
+   Provider 1 (BPP)->>User Platform (BAP): Request time slot to block, charging type, vehicle type of EV (on_select)
+	 User Platform (BAP)->> Provider 1 (BPP): Select time slot to block and charging type, vehicle type of EV (select)
+   Provider 1 (BPP)->>User Platform (BAP): Send draft order with quoted price and breakup (on_select)
+```
 
-- Provide billing details (Name, email ID, Phone Number)
+## Order Initialization
+In this stage, the User provides the required information and initiates the order
 
-#### Provider-side Actions
-
+### User-side Actions
+- User provides the billing details `Name`, `Email ID` and `Phone Number`
+- User updates the payment details and initiates the order
+  
+### Provider-side Actions
+- Rquest for billing details
 - Receive billing details from the user
 - Send draft order with payment and fulfillment terms
 
-### 4. Fulfillment (Order Confirmation)
+### Logical Workflow
+```mermaid
+    sequenceDiagram
+    EV User->>EV Charging Provider: Provides billing details and initates the order
+    EV Charging Provider->>EV User: Send draft order with payment transcipt and fulfillment terms
+```
 
-#### User-side Actions
+### Beckn Protocol API Workflow
+```mermaid
+    sequenceDiagram
+    User Platform (BAP)->> Provider 1 (BPP): BAP updates billing details and initiates the order(init)
+    Provider 1 (BPP)->>User Platform (BAP): BPP sends draft order with breakup and fulfillment terms (on_init)
+```
+## Fulfillment (Payment and Order Confirmation)
+User will check the order details and confirms the order with payment (might also update the order)
+Post payment user will activates the confirmed order
 
-- Confirm the order by agreeing to terms
+### User-side Actions
+- Confirms(\updates) the order by agreeing to fulfillment terms
 
-#### Provider-side Actions
-
+### Provider-side Actions
 - Receive order confirmation from the user
-- Send active confirmed order object to the user
+- Send active confirmed order to the user
 
-### 5. Status Updates and Monitoring
+## Status Updates and Monitoring
 
-#### User-side Actions
+### User-side Actions
 
-- Fetch the latest status of the order
+- Request to fetch the latest status of the order
 
 #### Provider-side Actions
 
 - Provide the latest status of the order to the user
 
-## Beckn Protocol API Workflow
+### Logical Worklow
+```mermaid
+    sequenceDiagram
+    EV User->>EV Charging Provider: Confirms (\Updates) the order and pays the the price
+    EV Charging Provider->>EV User: Send active confirmed order
+		EV User->>EV Charging Provider: Request for latest status of order
+		EV Charging Provider->>EV User: Sends the latest status of order
+```
 
-Refer to the diagrams below for visual representations of the Beckn Protocol API workflows for each stage.
+### Beckn API Workflow
+```mermaid
+    sequenceDiagram
+    User Platform (BAP)->> Provider 1 (BPP): BAP updates the payment and confirms the order and fulfillment terms(confirm)
+    Provider 1 (BPP)->>User Platform (BAP): BPP sends active confirmation of order (on_confirm)
+		User Platform (BAP)->> Provider 1 (BPP): BAP request to fetch the status of the order (status)
+    Provider 1 (BPP)->>User Platform (BAP): BPP provides the latest status of the order to BAP (on_status)
+```
 
-Please note that these interactions are illustrative and can vary based on real-world scenarios and platforms.
+### Example JSONS
+
+#### Example JSON for `search` API
+```json
+{
+  "context": {
+    "domain": "dent:0.1.0",
+    "action": "search",
+    "location": {
+      "country": {
+        "name": "India",
+        "code": "IND"
+      }
+    },
+    "city": "std:080",
+    "version": "1.1.0",
+    "bap_id": "example-bap.com",
+    "bap_uri": "https://api.example-bap.com/pilot/bap/energy/v1",
+    "transaction_id": "6743e9e2-4fb5-487c-92b7-13ba8018f176",
+    "message_id": "6743e9e2-4fb5-487c-92b7-13ba8018f176",
+    "timestamp": "2023-07-16T04:41:16Z"
+  },
+  "message": {
+    "intent": {
+      "item": {
+        "descriptor": {
+          "code": "energy"
+        },
+        "quantity": {
+          "required": {
+            "value": "4.0",
+            "unit": "kWH"
+          }
+        },
+        "category": {
+          "descriptor": {
+            "code": "green-tariff"
+          }
+        }
+      },
+      "location": {
+        "gps": "12.423423,77.325647",
+        "radius": {
+          "type": "CONSTANT",
+          "value": "5",
+          "unit": "km"
+        }
+      }
+    }
+  }
+}
+```
