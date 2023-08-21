@@ -8,11 +8,11 @@ Bear in mind, this is just an example workflow for a simple EV Charing workflow 
 A typical workflow for a EV Charging consists of the following steps
 
 #### Step 1: User searches for EV Chargers
-The user provides his/her current location and specific requirements (These requirements will act as filters for EV Charging Providers) to find the nearest EV Chargers to charge his/her EV vehicle
+The user provides his/her current location and specific requirements (These requirements will act as filters for EV Charging Providers) to find the nearest EV Chargers to charge his/her EV
 
 #### Step 2: Provider sends catalogs of EV Chargers nearby
-The provider sends all the EV Charger providers and their catalogs nearby to the user.
-The catalog will consists of all the services provided by the provider such as charging types, connector types and battery swapping services etc.,
+The provider sends all the nearby EV Charger providers and their catalogs to the user.
+The catalog will consist of all the services provided by the provider, such as charging types, connector types and battery swapping services etc.,
 
 #### Step 3: User selects EV Charger
 Selects the EV provider which satisfies his requirements.
