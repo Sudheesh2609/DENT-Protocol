@@ -15,7 +15,7 @@ The provider sends all the nearby EV Charger providers and their catalogs to the
 The catalog will consist of all the services provided by the provider, such as charging types, connector types and battery swapping services etc.,
 
 #### Step 3: User selects EV Charger
-Selects the EV provider which satisfies his requirements.
+Selects the EV charging provider which satisfies his/her requirements.
 In this stage user may select additional features such as:
 1. User can block/use-up the charger for a certain time slot along with start and duration time of the Charging session.
 2. User can select the charger type he wants to use such as A.C. or D.C.
