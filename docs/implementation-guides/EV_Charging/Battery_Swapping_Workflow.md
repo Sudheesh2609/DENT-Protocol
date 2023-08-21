@@ -3,7 +3,7 @@
 ## Overview
 This document outlines the workflow for Battery Swapping using the Beckn Protocol. The workflow includes interactions between the Battery Swapping Service provider and the EV owner (User) for search, select, and completing an Battery Swapping session.
 
-Bear in mind, this is just an example workflow for a simple EV Charing workflow between a EV User and a EV Charging Provider.
+Bear in mind, this is just an example workflow for a simple EV Charing workflow between a EV User and a Battery Swap Provider.
 
 A typical workflow for Battery Swapping consists of the following steps
 
@@ -47,3 +47,7 @@ The user requests to fetch the updates/status of his/her order
 
 #### Step 10: Provider sends the status of the order
 The provider will send the order updates with current status to the user
+
+## Search (Searching for EV Chargers)
+1. The user declares the intent for Battery Swap service request to the providers
+2. Providers publish their catalogs
