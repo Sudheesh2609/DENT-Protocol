@@ -1,7 +1,7 @@
 # Generic EV Charging Application Workflow #1
 
 ## Overview
-This document outlines the workflow for a generic Electric Vehicle (EV) Charging using the Beckn Protocol. The workflow includes interactions between the EV charging provider and the EV owner (user) for search, select, book, and completing an EV charging session.
+This document outlines the workflow for a generic Electric Vehicle (EV) Charging using the Beckn Protocol. The workflow includes interactions between the EV charging provider and the EV owner (user) for search, select, block, and completing an EV charging session.
 
 Bear in mind, this is just an example workflow for a simple EV Charing workflow between a EV User and a EV Charging Provider.
 
