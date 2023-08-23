@@ -1,33 +1,38 @@
-# Generic EV Charging Application Workflow #1
+# EV Charging & Battery Swapping Application Workflow #1
 
 ## Overview
-This document outlines the workflow for a generic Electric Vehicle (EV) Charging using the Beckn Protocol. The workflow includes interactions between the EV charging provider and the EV owner (user) for search, select, block, and completing an EV charging session.
+This document outlines the workflow for Electric Vehicle (EV) Charging and Battery Swapping using the DENT Protocol. The workflow includes interactions between the provider and the User for search, select, block, and completing the session.
 
-Bear in mind, this is just an example workflow for a simple EV Charing workflow between a EV User and a EV Charging Provider.
+Bear in mind, this is just an example workflow for a simple EV Charing and Battery Swapping workflow between a `User` and a `Provider`.
+(Note: Here, User -> Electric Vehicle Owner/User and Provider -> EV Chraging Provider or Battery Swapping Service Provider)
 
-A typical workflow for a EV Charging consists of the following steps
+A typical workflow for EV Charging & Battery Swapping consists of the following steps:
 
 #### Step 1: User searches for EV Chargers
-The user provides his/her current location and specific requirements (These requirements will act as filters for EV Charging Providers) to find the nearest EV Chargers to charge his/her EV
+The user provides his/her current location and specific requirements (These requirements will act as filters for EV Charging Providers such as amount of energy user needs in kwh) to find the nearest EV Chargers to charge his/her EV
 
 #### Step 2: Provider sends catalogs of EV Chargers nearby
-The provider sends all the nearby EV Charger providers and their catalogs to the user.
-The catalog will consist of all the services provided by the provider, such as charging types, connector types and battery swapping services etc.,
+The provider platform (BPP) sends all the nearby Providers and their catalogs to the user.
+The catalog will consist of all the services provided by the providers, such as charging types, connector types and battery swapping services etc.,
 
-#### Step 3: User selects EV Charger
-Selects the EV charging provider which satisfies his/her requirements.
+#### Step 3: User selects EV Charger or Battery Swapping Service
+Selects the provider which satisfies user requirements.
 In this stage user may select additional features such as:
-1. User can block/use-up the charger for a certain time slot along with start and duration time of the Charging session.
-2. User can select the charger type he wants to use such as A.C. or D.C.
-3. User can select the connecter type such as CCS2 etc.,
-4. User selects the vehicle type of his electrical vehicle (2-wheeler/3-wheeler/4-wheeler) and sends the information of the user EV.
+1. User can select his required services (such as EV Charging or Battery Swapping) from the catalog of provider
+2. User selects the vehicle type of his EV (2-wheeler/3-wheeler/4-wheeler) and selects the battery type (such as log9 battery) and also provides EV's information.
+3. User can block/reserve the charger/swapping service for a certain time slot along with start and duration time of the session.
+4. User can select the charger type he wants to use such as A.C. or D.C. and Connector types like CCS2 etc.,
+5. User can select quantity of energy required in the units of kwh. 
 
 #### Step 4: Provider sends quoted price
 The provider will receive the order based on the user requirements.
 The user gets the quoted price, including the breakdown of the price details.
 The breakdown should include:
-  - Tariff per unit (i.e., INR/KWh), the tariff per unit might change by the charger type and location of Energy Charger Provider
-  - Price for block/use-up
+  - Tariff per unit (i.e., INR/KWh), the tariff per unit might change by the service type, charger type and location of Energy Charger Provider
+(or)
+  - Price for Battery Swapping
+  - Price for reservation
+  - Taxes
 
 #### Step 5: User initiates the order
 User initializes the order by providing billing details. 
@@ -35,13 +40,13 @@ Here, the user will provide their `Name`, `Email ID` and `Phone Number` and upda
 
 #### Step 6: Provider sends draft order
 The provider sends the draft order with the payment and fulfilment terms to the user-side.
-Based on how much units of Electrical Energy user used during charging as tariff_per_unit as already mentioned above in INR/KWh
-If the user also done the block/use-up the transaction includes the price for block/use-up price as well 
+Based on how much units of Electrical Energy user used during charging as tariff_per_unit as already mentioned above in INR/KWh or the Price for Battery Swapping Service
+If the user also done the reservation/block the transaction includes the price for block/use-up price as well 
 The tariff_per_unit might change with the charger type as we know that A.C. charger type has different price compared to D.C. charger type.
 
 #### Step 7: User confirms the order
 User sees the draft order and confirms it by agreeing to the payment and fulfilment terms and conditions
-The confirm status will sent to the provider saying that user has paid the price
+The confirm status will sent to the provider saying that user has paid the price and satisfied the fulfillment terms
 
 #### Step 8: Provider sends the order activation
 The provider will activates the order and informs user that the order is activated
