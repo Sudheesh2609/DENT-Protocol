@@ -1,15 +1,15 @@
-# EV Charging & Battery Swapping Application Workflow #1
+# EV Charging and Battery Swapping Application Workflow #1
 
 ## Overview
 This document outlines the workflow for Electric Vehicle (EV) Charging and Battery Swapping using the DENT Protocol. The workflow includes interactions between the provider and the User for search, select, block, and completing the session.
 
-Bear in mind, this is just an example workflow for a simple EV Charing and Battery Swapping workflow between a `User` and a `Provider`.
+Bear in mind that this is just an example workflow for a simple EV Charing and Battery swap workflow between a `User` and a `Provider`.
 (Note: Here, User -> Electric Vehicle Owner/User and Provider -> EV Chraging Provider or Battery Swapping Service Provider)
 
 A typical workflow for EV Charging & Battery Swapping consists of the following steps:
 
 #### Step 1: User searches for EV Chargers
-The user provides his/her current location and specific requirements (These requirements will act as filters for EV Charging Providers such as amount of energy user needs in kwh) to find the nearest EV Chargers to charge his/her EV
+The user provides current location and specific requirements (These requirements will act as filters for EV Charging Providers such as amount of energy user needs in kwh) to find the nearest EV Chargers to charge his/her EV
 
 #### Step 2: Provider sends catalogs of EV Chargers nearby
 The provider platform (BPP) sends all the nearby Providers and their catalogs to the user.
@@ -17,20 +17,19 @@ The catalog will consist of all the services provided by the providers, such as 
 
 #### Step 3: User selects EV Charger or Battery Swapping Service
 Selects the provider which satisfies user requirements.
-In this stage user may select additional features such as:
+In this stage, the user may select additional features such as:
 1. User can select his required services (such as EV Charging or Battery Swapping) from the catalog of provider
-2. User selects the vehicle type of his EV (2-wheeler/3-wheeler/4-wheeler) and selects the battery type (such as log9 battery) and also provides EV's information.
-3. User can block/reserve the charger/swapping service for a certain time slot along with start and duration time of the session.
+2. User selects the vehicle type of his EV (2-wheeler/3-wheeler/4-wheeler), selects the battery type (such as log9 battery), and also provides the EV's information.
+3. User can block/reserve the charger/swap service for a certain time slot, along with the start and duration times of the session.
 4. User can select the charger type he wants to use such as A.C. or D.C. and Connector types like CCS2 etc.,
-5. User can select quantity of energy required in the units of kwh. 
+5. User can select quantity of energy required in units of kwh.
 
 #### Step 4: Provider sends quoted price
 The provider will receive the order based on the user requirements.
 The user gets the quoted price, including the breakdown of the price details.
 The breakdown should include:
   - Tariff per unit (i.e., INR/KWh), the tariff per unit might change by the service type, charger type and location of Energy Charger Provider
-(or)
-  - Price for Battery Swapping
+  - (or) Price for Battery Swapping
   - Price for reservation
   - Taxes
 
@@ -58,91 +57,91 @@ The user requests to check the updates/status of his/her order
 The provider will send the order updates with current status to the user
 
 ## Search (Searching for EV Chargers)
-1. The user declares the intent for EV Charging to the providers
+1. The user declares the intent for EV Charging/Battery Swap to the providers
 2. Providers publish the catalog of their services
 
 ### User-side Actions
 A EV user can declare their intent for EV charging in many ways like:
-- Searching for EV Charging Providers based on current location of user
+- Searching for EV Charging/Battery Swap Providers based on current location of user
 - Searching for EV Charging Providers based on quantity required
-- Searching for EV Charging Providers based on Name/Code of provider
-- Searching for EV Charging Providers based on ratings
-- View list of energy sources, such as EV chargers, Solar Farms providing EV charging, Houses providing EV charging, etc.
-- Viewing the catalog/details of services provided by a particular energy charging provider
+- Searching for Battery Swap Providers based on battery type
+- Searching for EV Charging/Battery Swap Providers based on Name/Code of provider
+- Searching for EV Charging/Battery Swap Providers based on ratings
+- View list of energy sources, such as EV chargers, Solar Farms providing EV charging, Houses providing EV charging, Battery Swap Providers etc.
+- Viewing the catalog/details of services provided by a particular charging/Battery Swap provider
 
 ### Provider-side Actions
 In this interaction, the Provider publishes their catalog of services and products. A Provider can publish various types of catalogs like
-- Publish list of energy sources and EV chargers including Solar Farms providing EV charging, Houses, etc.
+- Publish list of energy sources and EV chargers including Solar Farms providing EV charging, Houses, Battery Swap Providers etc.
 - Publish list of provders in 5Km radius of user
-- Publish list of provders with the requested Charing types/Connector types
-- Publish catalog/details of services provided by energy charging providers
-- Publish catalog of services provided by a particuar energy charging providers
+- Publish list of provders with the requested Charing types/Connector types/Battery types
+- Publish catalog/details of services provided by providers
+- Publish catalog of services provided by a particuar provider
   
 ### Logical Workflow
 ```mermaid
     sequenceDiagram
-    EV User->>EV Charging Provider: Declare Intent to charge Electric Vehicle
-    EV Charging Provider->>EV User: Publish Catalog of services available
+    User->>Provider: Declare Intent to EV Charging / Battery swapping
+    Provider->>User: Publish Catalog of services available
 ```
 ### Beckn Protocol API Workflow
 In beckn protocol, the search intent generated by the EV User Platform (BAP) is typically published on the gateway (BG) that broadcasts the intent to multiple Provider platforms (BPPs). Each of the BPPs return their catalogs directly to the BAP via asynchronous callbacks. The workflow for that is shown below.
 ```mermaid
     sequenceDiagram
-    User Platform (BAP)->>Gateway (BG): Declare Intent to charge EV ( search )
+    User Platform (BAP)->>Gateway (BG): Declare Intent to charge EV / swap battery ( search )
     Gateway (BG)->>Registry: Lookup Provider Platforms (lookup)
     Registry->>Gateway (BG): List of Provider Platforms in 'x'km radius and 'y'kwh energy quantity required (200 OK)
-    Gateway (BG)->>Provider Platform 1 (BPP1): Declare Intent to charge EV (search)
-    Gateway (BG)->>Provider Platform 2 (BPP2): Declare Intent to charge EV (search)
-    Gateway (BG)->>Provider Platform n (BPPn): Declare Intent to charge EV (search)
+    Gateway (BG)->>Provider Platform 1 (BPP1): Declare Intent to charge EV or Swap Battery (search)
+    Gateway (BG)->>Provider Platform 2 (BPP2): Declare Intent to charge EV or Swap Battery (search)
+    Gateway (BG)->>Provider Platform n (BPPn): Declare Intent to charge EV or Swap Battery(search)
     Provider Platform 1 (BPP1)->>User Platform (BAP): Publish Catalog of Provider 1 (on_search)
     Provider Platform 2 (BPP2)->>User Platform (BAP): Publish Catalog of Provider 2 (on_search)
     Provider Platform n (BPPn)->>User Platform (BAP): Publish Catalog of Provider n (on_search)
 ```
 
 ## Select and Book Charging
-1. User selects a EV Charge Provider from the list which satisfies the requirements
+1. User selects a EV Charge/ Battery Swap Provider from the list which satisfies the requirements
 2. The provider sends the draft order with the quoted price to the User
    
 ### User-side Actions
-- Selecting EV Charge Provider(s) after viewing catalogs
+- Selecting EV Charge/Battery Swap Provider(s) after viewing catalogs
 - Selecting to block/use-up charger (or) not. (Y/N) 
-- Selecting start and end time for block/use-up of charger
-- Selecting charger type (A.C./D.C.)
-- Selecting vehicle type (2-wheeler, 3-wheeler, 4-wheeler)
-- Selecting Connector type (CCS2, etc.,)
+- Selecting start and end time for block/use-up of charger/swap service
+- Selecting charger type (A.C./D.C.) and connector type
+- Selecting vehicle type (2-wheeler, 3-wheeler, 4-wheeler) and its battery type
 
 ### Provider-side Actions
 - Receive user's selection
 - Requesting for block/use-up charger (Y/N)
 - Requesting for time slot
-- Requesting for charger type, connecter type and vehicle type
+- Requesting for charger type, connecter type, vehicle type and battery type
 - Provider sends draft order for the selected EV charge with quoted price
-- The price includes with a breakdown of `tariff_per_unit`, `Reservation Price`, `GST`
+- The price includes with a breakdown of `tariff_per_unit` (or) `price for battery swap`, `Reservation Price`, `taxes`
 
 ### Logical Workflow
 The below diagram illustrates the logical interactions between a EV user and Provider during the Selecting service/product stage
 ```mermaid
     sequenceDiagram
-    EV User->>EV Charging Provider: Selects a EV charger provider
-    EV Charging Provider->>EV User: Request for block/use-up (Y/N)
-    EV User->>EV Charging Provider: Selects for block/use-up (Y/N)
-    EV Charging Provider->>EV User: Request for time slot - start & end
-    EV User->>EV Charging Provider: Selects start & end time slot
-    EV Charging Provider->>EV User: Requesting for charger type & vehicle type
-		EV User->>EV Charging Provider: Selects charger & vehicle type
-    EV Charging Provider->>EV User: Sends the draft order with quoted price
+    User->>Provider: Selects a EV charger/battery swap provider
+    Provider->>User: Request for block/use-up (Y/N)
+    User->>Provider: Selects for block/use-up (Y/N)
+    Provider->>User: Request for time slot - start & end
+    User->>Provider: Selects start & end time slot
+    Provider->>User: Requesting for charger type, vehicle type & battery type
+    User->>Provider: Selects charger, vehicle and battery type
+    Provider->>User: Sends the draft order with quoted price
 ```
 
 ### Beckn Protocol API Workflow
 ```mermaid
    sequenceDiagram
-   User Platform (BAP)->> Provider 1 (BPP): Select EV charge Provider after seeing catalogs of all providers (select)
+   User Platform (BAP)->> Provider 1 (BPP): Select EV charge/Battery swap Provider after seeing catalogs of all providers (select)
    Provider 1 (BPP)->>User Platform (BAP): Publish Provider 1 catalog (on_select)
-   User Platform (BAP)->> Provider 1 (BPP): Select EV charging as a service from Provider 1 (select)
+   User Platform (BAP)->> Provider 1 (BPP): Select oen from EV charging & Battery Swap as a service from Provider 1 (select)
    Provider 1 (BPP)->>User Platform (BAP): Request block/use-up (on_select)
    User Platform (BAP)->> Provider 1 (BPP): Select block/use-up (select)
-   Provider 1 (BPP)->>User Platform (BAP): Request time slot to block, charging type, vehicle type of EV (on_select)
-	 User Platform (BAP)->> Provider 1 (BPP): Select time slot to block and charging type, vehicle type of EV (select)
+   Provider 1 (BPP)->>User Platform (BAP): Request time slot to block, charging type, vehicle type and battery type of EV (on_select)
+   User Platform (BAP)->> Provider 1 (BPP): Select time slot to block and charging type, vehicle type and battery type of EV (select)
    Provider 1 (BPP)->>User Platform (BAP): Send draft order with quoted price and breakdown (on_select)
 ```
 
@@ -154,15 +153,15 @@ In this stage, the User provides the required information and initiates the orde
 - User updates the payment details and initiates the order
   
 ### Provider-side Actions
-- Rquest for billing details
+- Request for billing details
 - Receive billing details from the user
 - Send draft order with payment and fulfillment terms
 
 ### Logical Workflow
 ```mermaid
     sequenceDiagram
-    EV User->>EV Charging Provider: Provides billing details and initates the order
-    EV Charging Provider->>EV User: Send draft order with payment transcipt and fulfillment terms
+    User->>Provider: Provides billing details and initates the order
+    Provider->>User: Send draft order with payment transcript and fulfillment terms
 ```
 
 ### Beckn Protocol API Workflow
@@ -195,10 +194,10 @@ Post payment user will activates the confirmed order
 ### Logical Worklow
 ```mermaid
     sequenceDiagram
-    EV User->>EV Charging Provider: Confirms (\Updates) the order and pays the the price
-    EV Charging Provider->>EV User: Send active confirmed order
-		EV User->>EV Charging Provider: Request for latest status of order
-		EV Charging Provider->>EV User: Sends the latest status of order
+    User->>Provider: Confirms (\Updates) the order and pays the the price
+    Provider->>User: Send active confirmed order
+    User->>Provider: Request for latest status of order
+    Provider->>User: Sends the latest status of order
 ```
 
 ### Beckn API Workflow
@@ -206,6 +205,6 @@ Post payment user will activates the confirmed order
     sequenceDiagram
     User Platform (BAP)->> Provider 1 (BPP): BAP updates the payment and confirms the order and fulfillment terms(confirm)
     Provider 1 (BPP)->>User Platform (BAP): BPP sends active confirmation of order (on_confirm)
-		User Platform (BAP)->> Provider 1 (BPP): BAP request to fetch the status of the order (status)
+    User Platform (BAP)->> Provider 1 (BPP): BAP request to fetch the status of the order (status)
     Provider 1 (BPP)->>User Platform (BAP): BPP provides the latest status of the order to BAP (on_status)
 ```
