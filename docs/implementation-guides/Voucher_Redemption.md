@@ -1,4 +1,4 @@
-# Voucher Redemption Implementation Guide
+# Voucher Redemption Implementation Guide #2
 
 ## Overview
 This implementation guide outlines the process of voucher redemption within the context of the Beckn Protocol. Voucher redemption allows users to utilize vouchers for energy transactions, enhancing the user experience and promoting business offerings. This guide provides step-by-step instructions on how users can explore, select, and redeem vouchers, along with the interaction between the user and the energy provider.
