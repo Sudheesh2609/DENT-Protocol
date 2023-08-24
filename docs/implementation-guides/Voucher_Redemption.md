@@ -174,4 +174,5 @@ Post payment user will activates the confirmed order
     Provider 1 (BPP)->>User Platform (BAP): BPP sends active confirmation of order (on_confirm)
     User Platform (BAP)->> Provider 1 (BPP): BAP request to fetch the status of the order (status)
     Provider 1 (BPP)->>User Platform (BAP): BPP provides the latest status of the order to BAP (on_status)
+    Provider 1 (BPP)->>Provider 1 (BPP): Following completion, status is "Not Valid"
 ```
