@@ -61,7 +61,7 @@ The provider will send the order updates with current status to the user
 2. Providers publish the catalog of their services
 
 ### User-side Actions
-A EV user can declare their intent for EV charging in many ways like:
+A EV user can declare their intent for charging their EV in many ways like:
 - Searching for EV Charging/Battery Swap Providers based on current location of user
 - Searching for EV Charging Providers based on quantity required
 - Searching for Battery Swap Providers based on battery type
