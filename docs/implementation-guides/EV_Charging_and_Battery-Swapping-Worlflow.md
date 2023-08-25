@@ -411,7 +411,7 @@ The below diagram illustrates the logical interactions between a EV user and Pro
    sequenceDiagram
    User Platform (BAP)->> Provider 1 (BPP): Select EV charge/Battery swap Provider after seeing catalogs of all providers (select)
    Provider 1 (BPP)->>User Platform (BAP): Publish Provider 1 catalog (on_select)
-   User Platform (BAP)->> Provider 1 (BPP): Select oen from EV charging & Battery Swap as a service from Provider 1 (select)
+   User Platform (BAP)->> Provider 1 (BPP): Select one from EV charging & Battery Swap as a service from Provider 1 (select)
    Provider 1 (BPP)->>User Platform (BAP): Request block/use-up (on_select)
    User Platform (BAP)->> Provider 1 (BPP): Select block/use-up (select)
    Provider 1 (BPP)->>User Platform (BAP): Request time slot to block, charging type, vehicle type and battery type of EV (on_select)
