@@ -208,3 +208,31 @@ Post payment UEI will activate the confirmed order
     User Platform (BAP)->>Provider 1 (BPP): Remainder to the BPP of an upcoming dispatch of energy (status)
     Provider 1 (BPP)->>User Platform (BAP): BPP acknowledges the remainder from BAP (on_status)
 ```
+
+### Example Scenarios for entire workflow
+
+#### Example 1
+
+- Sheru searches for 100 kWh of energy. (search)
+- UEI Protocol provides a list of catalogs including individuals/crowds. (on_search)
+- Sheru selects an individual for energy purchase. (select)
+- Individual selects Automatic Dispatch. (on_select)
+- Sheru declares the requirement (100 kWh) (init).
+- UEI Protocol BPP calculates the quote and sends the payment amount (on_init).
+- Sheru confirms the order (confirm).
+- UEI notifies Sheru about order confirmation (on_confirm).
+- Energy is dispatched after confirmation.
+- Sheru checks the status of the dispatched energy (status api).
+
+#### Example 2
+- Sheru needs 200 kWh of energy.
+- UEI/DENT Protocol provides a list of catalogs including individuals/crowds.
+- Sheru selects an individual for energy purchase.
+- Individual selects Manual Dispatch.
+- Sheru declares the requirement (200 kWh) (init).
+- UEI/DENT Protocol BPP calculates the quote and sends the payment amount (on_init).
+- Individual confirms commitment to fulfillment terms (confirm).
+- UEI notifies Sheru about individual's confirmation (on_confirm).
+- Sheru pays the bill and confirms the payment (confirm).
+- UEI/DENT Protocol BPP confirms fulfillment and payment (on_confirm).
+- Sheru checks the status of the dispatched energy (status api).
