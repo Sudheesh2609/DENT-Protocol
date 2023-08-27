@@ -1,0 +1,70 @@
+{
+    "context": {
+      "domain": "uei:0.1.0",
+      "location": {
+        "country": {
+          "name": "India",
+          "code": "IND"
+        }
+      },
+      "timestamp": "2023-07-27T12:00:00Z",
+      "bap_id": "example-bap.com",
+      "transaction_id": "f3ebea1a-3f10-48e3-9fb3-3b747f4927df",
+      "message_id": "f3ebea1a-3f10-48e3-9fb3-3b747f4927df",
+      "city": "std:080",
+      "core_version": "1.1.0",
+      "action": "select",
+      "bap_uri": "https://api.example-bap.com/pilot/bap/charge/v1"
+    },
+    "message": {
+      "intent": {
+        "descriptor": {
+          "name": "Select Energy Tariff Plan"
+        }
+      },
+      "available_plans": [
+        {
+          "plan_id": "plan123",
+          "descriptor": {
+            "name": "Standard Tariff Plan"
+          },
+          "price": {
+            "currency": "INR",
+            "value": "15 rupees per unit"
+          },
+          "billing_type": "time-of-use",
+          "validity": "2023-12-31T23:59:59Z",
+          "terms_and_conditions": "https://example-energy.com/terms/standard_plan",
+          "description": "This is a standard tariff plan with a time-of-use billing type. The price is 15 rupees per unit, and it is valid until 31st December 2023."
+        },
+        {
+          "plan_id": "plan456",
+          "descriptor": {
+            "name": "Green Energy Plan"
+          },
+          "price": {
+            "currency": "INR",
+            "value": "18 rupees per unit"
+          },
+          "billing_type": "flat-rate",
+          "validity": "2023-12-31T23:59:59Z",
+          "terms_and_conditions": "https://example-energy.com/terms/green_plan",
+          "description": "This is a green energy plan with a flat-rate billing type. The price is 18 rupees per unit, and it is valid until 31st December 2023."
+
+        }
+      ],
+      "fulfillment": {
+        "vehicle": {
+          "category": "car",
+          "make": "Tata",
+          "model": "Nexon EV",
+          "variant": "ZX+",
+          "wheels_count": "4",
+          "energy_type": "electric"
+        },
+        "charging_type": {
+          "AC/DC": "AC"
+        }
+      }  
+    }
+  }  
