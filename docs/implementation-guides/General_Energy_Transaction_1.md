@@ -4,7 +4,7 @@
 This implementation guide outlines the energy transaction process where Sheru (Energy Aggregator) purchases energy from individuals or crowds using the Beckn Protocol. The guide provides step-by-step instructions on how Sheru interacts with the Unified Energy Interface (UEI) to discover energy sources, select providers, initiate transactions, confirm orders, and monitor status updates.
 
 ## Important NOTE :
-- During Auto Discharge the provider will sign a consent form such that upon the initiation of the energy transaction, access to discharging/dischargeing the energy from the battery or source of energy is completely given to UEI, until the transaction is completed.
+- During Auto-Discharge, the provider will sign a consent form such that upon the initiation of the energy transaction, access to discharging/dischargeing the energy from the battery or source of energy is completely given to UEI, until the transaction is completed.
 - Since, only UEI has the control/access to discharge the battery or energy source, there is no need ro use of penalty.
 - During Manual Discharge, the control/access is not given to UEI; rather, the provider him/herself will discharge/discharge the energy.
 - In this case, if the provider has not satisfied the terms he/she agreed upon during the transaction, then the provider has to pay the penalty for the amount of energy he/she was not able to provide.
