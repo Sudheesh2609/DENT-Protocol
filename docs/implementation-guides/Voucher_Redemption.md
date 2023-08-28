@@ -120,8 +120,8 @@ In this stage, the User provides the required information and initiates the orde
   - Total amount (INR)
     
 #### Note:
-Price for energy used = Energy used x Tariff per unit
-Total amount = Price for energy used + Reservation Charges - Voucher Redemption Discount + Taxes
+- Price for energy used = Energy used x Tariff per unit
+- Total amount = Price for energy used + Reservation Charges - Voucher Redemption Discount + Taxes
 
 ### Logical Workflow
 ```mermaid
