@@ -1,7 +1,7 @@
 # General Energy Transaction Workflow #2
 
 ## Overview
-This implementation guide outlines the energy transaction process where Sheru (Energy Aggregator) purchases energy from individuals or crowds using the Beckn Protocol. The guide provides step-by-step instructions on how Sheru interacts with the Unified Energy Interface (UEI) to discover energy sources, select providers, initiate transactions, confirm orders, and monitor status updates.
+This implementation guide outlines the energy transaction process where Sheru (Energy Aggregator) borrows energy storage space or batteries from individuals or crowds to store and use up the energy when required, using the Beckn Protocol. The guide provides step-by-step instructions on how Sheru interacts with the Unified Energy Interface (UEI) to discover energy storage/batteries, select providers, initiate transactions, confirm orders, and monitor status updates.
 
 ## Important NOTE :
 - During Auto-Discharge, the provider will sign a consent form such that upon the initiation of the energy transaction, access to discharging/dischargeing the energy from the battery or source of energy is completely given to UEI, until the transaction is completed.
