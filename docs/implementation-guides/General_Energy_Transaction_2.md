@@ -4,15 +4,15 @@
 This implementation guide outlines the energy transaction process where Sheru (Energy Aggregator) borrows energy storage space or batteries from individuals or crowds to store and use up the energy when required, using the Beckn Protocol. The guide provides step-by-step instructions on how Sheru interacts with the Unified Energy Interface (UEI) to discover energy storage/batteries, select providers, initiate transactions, confirm orders, and monitor status updates.
 
 ## Important NOTE :
-- During Auto-Discharge, the provider will sign a consent form such that upon the initiation of the energy transaction, access to discharging/dischargeing the energy from the battery or source of energy is completely given to UEI, until the transaction is completed.
-- Since, only UEI has the control/access to discharge the battery or energy source, there is no need ro use of penalty.
-- During Manual Discharge, the control/access is not given to UEI; rather, the provider him/herself will discharge/discharge the energy.
-- In this case, if the provider has not satisfied the terms he/she agreed upon during the transaction, then the provider has to pay the penalty for the amount of energy he/she was not able to provide.
-- The form of energy discharging, either through Auto-Discharging or Manual-Discharging is completely the provider's choice, which is a `pre-select` feature for the provider.
+- During Automatic, the provider will sign a consent form such that upon the initiation of the energy transaction, access to both charging and discharging the energy from the battery or energy storage devices is completely given to UEI, until the transaction is completed.
+- Since, only UEI has the control/access to charge and discharge the battery or energy storage devices, there is no need to use penalties.
+- During Manual, the control/access is not given to UEI; rather, the provider him/herself will charge or discharge the energy.
+- In this case, if the provider has not satisfied the terms and conditions he/she agreed upon during the transaction, then the provider has to pay the penalty for the amount of energy he/she was not able to provide.
+- The form of energy charging and discharging, either automatic or manual, is completely the provider's choice, which is a `pre-select` feature for the provider.
 
-Bear in mind that this is just an example workflow for a simple Energy transaction where Sheru buys the Energy from the individuals/crowd using UEI.
+Bear in mind that this is just an example workflow for a simple Energy transaction where Sheru borrows the Energy Storage from the individuals/crowd using UEI.
 
-(Note: Here, User -> Sheru and Provider -> Individual/Crowd who is providing energy and UEI -> Unified Energy Interface)
+(Note: Here, User -> Sheru and Provider -> Individual/Crowd who is providing energy storage device or batteries and UEI -> Unified Energy Interface)
 
 A typical workflow for EV Charging & Battery Swapping consists of the following steps:
 
