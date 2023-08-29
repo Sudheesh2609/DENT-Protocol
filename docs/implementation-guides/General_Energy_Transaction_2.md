@@ -1,4 +1,4 @@
-# General Energy Transaction Workflow #1
+# General Energy Transaction Workflow #2
 
 ## Overview
 This implementation guide outlines the energy transaction process where Sheru (Energy Aggregator) purchases energy from individuals or crowds using the Beckn Protocol. The guide provides step-by-step instructions on how Sheru interacts with the Unified Energy Interface (UEI) to discover energy sources, select providers, initiate transactions, confirm orders, and monitor status updates.
