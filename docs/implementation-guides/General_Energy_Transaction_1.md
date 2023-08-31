@@ -627,7 +627,74 @@ In this stage, the User provides the required information and initiates the orde
     Provider 1 (BPP)->>User Platform (BAP): BPP Sends the payment link to the BAP
 ```
 
-### Example json for `init` api
+### Example json for `init` api for automatic mode:
+```json
+{
+    "context": {
+      "domain": "dent:0.1.0",
+      "action": "init",
+      "location": {
+        "country": {
+          "name": "India",
+          "code": "IND"
+        }
+      },
+      "city": "std:080",
+      "version": "1.1.0",
+      "bap_id": "example-bap.com",
+      "bap_uri": "https://api.example-bap.com/pilot/bap/energy/v1",
+      "bpp_id": "sheru-bpp.com",
+      "bpp_uri": "https://api.sheru-bpp.com/pilot/bap/energy/v1",
+      "transaction_id": "6743e9e2-4fb5-487c-92b7-13ba8018f176",
+      "message_id": "6743e9e2-4fb5-487c-92b7-13ba8018f176",
+      "timestamp": "2023-07-16T04:41:16Z"
+    },
+    "message": {
+      "order": {
+        "provider": {
+          "id": "individual_1"
+        },
+        "items": [
+          {
+            "id": "1",
+            "quantity": {
+              "selected": {
+                "measure": {
+                  "value": "315",
+                  "unit": "kWh"
+                }
+              }
+            }
+          }
+        ],
+        "billing": {
+          "name": "Sheru",
+          "email": "abc@example.com",
+          "phone": "+91-9876522222"
+        },
+        "fulfillments": [
+          {
+            "id": "1",
+            "customer": {
+              "organization": {
+                "name": "Sheru"
+              },
+              "contact": {
+                "phone": "+91-9887766554"
+              }
+            }
+          }
+        ],
+        "consent_form": {
+          "type": "automatic",
+          "content": "By signing this consent form, I authorize the automatic dispatch of the requested energy."
+        }
+      }
+    }
+}
+```
+
+### Example json for `init` api for Manual mode:
 ```json
 {
     "context": {
@@ -687,11 +754,10 @@ In this stage, the User provides the required information and initiates the orde
         ]
       }
     }
-  }
-  
+}
 ```
 
-### Example json for `on_init` api
+### Example json for `on_init` api for Automatic mode:
 ```json
 {
     "context": {
@@ -743,6 +809,126 @@ In this stage, the User provides the required information and initiates the orde
           {
             "id": "1",
             "mode": "Automatic Dispatch",
+            "state": {
+              "descriptor": {
+                "code": "order-initiated"
+              }
+            },
+            "stops": [
+                {
+                  "quantity": {
+                    "measure": {
+                      "value": "315.0",
+                      "unit": "kWH"
+                    }
+                  }
+                }
+              ],
+            "consent_form": {
+              "url": "https://example-consent-form.com",
+              "status": "PENDING",
+              "signed_by_provider": false
+            }
+          }
+        ],
+        "billing": {
+          "email": "sheru@example.com",
+          "number": "+91-9876522222"
+        },
+        "quote": {
+          "price": {
+            "value": "40",
+            "currency": "INR"
+          },
+          "breakup": [
+            {
+              "title": "units consumed",
+              "price": { "value": "40", "currency": "INR" }
+            },
+            {
+              "title": "cgst",
+              "price": { "value": "4", "currency": "INR" }
+            },
+            {
+              "title": "sgst",
+              "price": { "value": "4", "currency": "INR" }
+            }
+          ]
+        },
+        "payments": [
+          {
+            "url": "https://payment.gateway.in",
+            "type": "PRE-ORDER",
+            "status": "NOT-PAID",
+            "params": {
+              "amount": "40",
+              "currency": "INR"
+            },
+            "time": {
+              "range": {
+                "start": "2023-08-10T10:00:00Z",
+                "end": "2023-08-10T10:30:00Z"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+```
+
+### Example json for `on_init` api for Manual mode:
+```json
+{
+    "context": {
+      "domain": "dent:0.1.0",
+      "action": "on_init",
+      "location": {
+        "country": {
+          "name": "India",
+          "code": "IND"
+        }
+      },
+      "city": "std:080",
+      "version": "1.1.0",
+      "bap_id": "example-bap.com",
+      "bap_uri": "https://api.example-bap.com/pilot/bap/energy/v1",
+      "bpp_id": "sheru-bpp.com",
+      "bpp_uri": "https://api.sheru-bpp.com/pilot/bap/energy/v1",
+      "transaction_id": "6743e9e2-4fb5-487c-92b7-13ba8018f176",
+      "message_id": "6743e9e2-4fb5-487c-92b7-13ba8018f176",
+      "timestamp": "2023-07-16T04:41:16Z"
+    },
+    "message": {
+      "order": {
+        "providers": {
+          "id": "individual_1",
+          "descriptor": {
+            "name": "individual_1",
+            "images": [
+              {
+                "url": "https://individual1.io/images/logo.png"
+              }
+            ]
+          }
+        },
+        "items": [
+          {
+            "id": "1",
+            "price": {
+              "value": "8",
+              "currency": "INR/kWH"
+            },
+            "quantity": {
+              "available": "500"
+            },
+            "fulfillments": ["1"]
+          }
+        ],
+        "fulfillments": [
+          {
+            "id": "1",
+            "mode": "Manual Dispatch",
             "state": {
               "descriptor": {
                 "code": "order-initiated"
