@@ -443,55 +443,55 @@ The below diagram illustrates the logical interactions between a User and Provid
 ### Example json for `select` api
 ```json
 {
-    "context": {
-      "domain": "dent:0.1.0",
-      "action": "select",
-      "location": {
-        "country": {
-          "name": "India",
-          "code": "IND"
-        }
-      },
-      "city": "std:080",
-      "version": "1.1.0",
-      "bap_id": "example-bap.com",
-      "bap_uri": "https://api.example-bap.com/pilot/bap/energy/v1",
-      "bpp_id": "sheru-bpp.com",
-      "bpp_uri": "https://api.sheru-bpp.com/pilot/bap/energy/v1",
-      "transaction_id": "6743e9e2-4fb5-487c-92b7-13ba8018f176",
-      "message_id": "6743e9e2-4fb5-487c-92b7-13ba8018f176",
-      "timestamp": "2023-07-16T04:41:16Z"
+  "context": {
+    "domain": "dent:0.1.0",
+    "action": "select",
+    "location": {
+      "country": {
+        "name": "India",
+        "code": "IND"
+      }
     },
-    "message": {
-      "order": {
-        "provider": {
-          "id": "individual_1"
-        },
-        "items": [
-          {
-            "provider": {
-                "contact": {
-                "email": "joe.adam@abc.org",
-                "phone": "+91-9999999999"
-                },
-                "person": {
-                "id": "0065716000",
-                "name": "Joe Adam"
-                }
-             },
-            "quantity": {
-              "selected": {
-                "measure": {
-                  "value": "315.0",
-                  "unit": "kWh"
-                }
+    "city": "std:080",
+    "version": "1.1.0",
+    "bap_id": "example-bap.com",
+    "bap_uri": "https://api.example-bap.com/pilot/bap/energy/v1",
+    "bpp_id": "sheru-bpp.com",
+    "bpp_uri": "https://api.sheru-bpp.com/pilot/bap/energy/v1",
+    "transaction_id": "6743e9e2-4fb5-487c-92b7-13ba8018f176",
+    "message_id": "6743e9e2-4fb5-487c-92b7-13ba8018f176",
+    "timestamp": "2023-07-16T04:41:16Z"
+  },
+  "message": {
+    "order": {
+      "provider": {
+        "id": "individual_1"
+      },
+      "items": [
+        {
+          "provider": {
+            "contact": {
+              "email": "joe.adam@abc.org",
+              "phone": "+91-9999999999"
+            },
+            "person": {
+              "id": "0065716000",
+              "name": "Joe Adam"
+            }
+          },
+          "quantity": {
+            "selected": {
+              "measure": {
+                "value": "315.0",
+                "unit": "kWh"
               }
             }
           }
-        ]
-      }
+        }
+      ]
     }
   }
+}
 ```
 
 ### Example json for `on_select` api:
@@ -541,9 +541,6 @@ The below diagram illustrates the logical interactions between a User and Provid
                 "name": "Joe Adam"
               }
             },
-            "mode_selection": {
-              "selected_mode": "Automatic Dispatch"
-            },
             "price": {
               "value": "8",
               "currency": "INR/kWh"
@@ -573,7 +570,7 @@ The below diagram illustrates the logical interactions between a User and Provid
             {
               "item": {
                 "descriptor": {
-                  "name": "Estimated units dispatched"
+                  "name": "units dispatched"
                 },
                 "quantity": {
                   "selected": {
@@ -594,7 +591,7 @@ The below diagram illustrates the logical interactions between a User and Provid
       }
     }
   }
-  
+    
 ```
 ## Order Initialization
 In this stage, the User provides the required information and initiates the order
