@@ -2,8 +2,6 @@
 
 The Decentralized Energy Transaction (DENT) Protocol is an adaptation of [beckn protocol](https://github.com/beckn/protocol-specifications) for transactional use cases in the energy sector.
 
-[release-v0.2.0 branch - main repo](https://github.com/beckn/DENT-Protocol/tree/release-v0.2.0) || [Link to PR](https://github.com/beckn/DENT-Protocol/pull/10)
-
 ---
 
 ## Release History
@@ -44,7 +42,7 @@ To understanding how to implement the specification click [here](./docs/5_Implem
 
 The author(s) of this specification would like to thank the following volunteers for their contribution to the development of this specification
 
-### Version 0.2.0
+## Version 0.2.0
 - Akhil Jayaprakash - Pulse Energy (pulseenergy.io)
 - Ankit Mittal - Sheru (sheru.se)
 - Sudheesh Kumar Potla - IIT Kharagpur ([@Sudheesh2609](https://github.com/Sudheesh2609))
@@ -53,3 +51,9 @@ The author(s) of this specification would like to thank the following volunteers
 
 ## References
 1. Energy Transactions - https://www.dentons.com/en/find-your-dentons-team/industry-sectors/energy/energy-trading-marketing-and-derivatives/energy-transactions
+
+## Helpful Links
+1. [release-v0.2.0 branch - main repo](https://github.com/beckn/DENT-Protocol/tree/release-v0.2.0)
+2. [Link to PR](https://github.com/beckn/DENT-Protocol/pull/10)
+3. [Demo Video](https://drive.google.com/file/d/1SaXOzhgVsyUOqKFkJS48QzqhF-e0KtU5/view?usp=sharing)
+4. [Slide Deck](https://docs.google.com/presentation/d/1SShsht5oz96TZEAU4glRmPYHdYpkUJCc/edit?usp=sharing&ouid=105185966727102552469&rtpof=true&sd=true)
