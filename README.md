@@ -1,8 +1,10 @@
 # Decentralized Energy Transaction Protocol (DENT)
+
+The Decentralized Energy Transaction (DENT) Protocol is an adaptation of [beckn protocol](https://github.com/beckn/protocol-specifications) for transactional use cases in the energy sector.
+
 [release-v0.2.0 branch - main repo](https://github.com/beckn/DENT-Protocol/tree/release-v0.2.0) || [Link to PR](https://github.com/beckn/DENT-Protocol/pull/10)
 
 ---
-The Decentralized Energy Transaction (DENT) Protocol is an adaptation of [beckn protocol](https://github.com/beckn/protocol-specifications) for transactional use cases in the energy sector.
 
 ## Release History
 
